@@ -10,13 +10,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class HomePage {
 
-  creds : CredenciaisDTO = {
+  creds: CredenciaisDTO = {
     email: "",
     senha: ""
   }
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public menu: MenuController,
     public auth: AuthService) {
 
@@ -26,10 +26,10 @@ export class HomePage {
     this.auth.authenticate(this.creds)
       .subscribe(response => {
         console.log(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
         this.navCtrl.setRoot('CategoriasPage');
       },
-      )
-    console.log(this.creds);
+        error => { });
   }
 
   ionViewWillEnter() {
